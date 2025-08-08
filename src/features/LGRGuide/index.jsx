@@ -80,7 +80,9 @@ const LGRGuide = () => {
             qfood1-9, QKILLER, QEXIT: Frames of size 40x40 (max 1000 frames).
             The topleft pixel of each individual frame is used as transparency.
             If you skip a number in qfood1-9, none of the subsequent food images
-            will be loaded.
+            will be loaded. Third-party and image-editing programs may struggle
+            to correctly process images with 820-1000 frames, so try to keep the
+            frame count between 1-819.
           </li>
           <li>
             QGRASS: Grass texture file. Also counts as a regular texture, though
@@ -113,9 +115,9 @@ const LGRGuide = () => {
             ends on pixel (x, y) = (WIDTH - 1, 20)
           </li>
           <li>
-            QUP_0: If you have a perfectly even grass, you should probably
-            follow default.lgr and put it as a QUP and not a QDOWN to avoid
-            unintended behaviour
+            QUP_0: It doesn't matter if you use QUP_0 or QDOWN_0 for a perfectly
+            even grass. However, to avoid compatibility issues with third-party
+            program, it is recommended to follow default.lgr use QUP_0.
             <br />
             <img src="https://up.elma.online/u/nrqbmjwnps/Grass.png" />
           </li>

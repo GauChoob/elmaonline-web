@@ -26,6 +26,7 @@ const LGRList = () => {
   useEffect(() => {
     getLGRs();
     getTagOptions();
+    setExcludedTags(tagOptions.filter(tag => tag.Name === 'Low Quality'));
   }, []);
 
   const sortBy = settings.sortBy ? settings.sortBy : 'LGRName';

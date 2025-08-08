@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import config from 'config';
 import Alert from 'components/Alert';
 import { Text, Column } from 'components/Containers';
 import Dropzone from 'components/Dropzone';
@@ -136,7 +137,7 @@ const LGRUpload = ({ lgrToEdit }) => {
   };
 
   const onDropLGR = newFiles => {
-    // Dropzone already limits the file size to 10 MB
+    // Dropzone already limits the file size to 2*config.maxUploadSize (2*10 MB), or 5*config.maxUploadSize for mods
     if (lgrToEdit) {
       return;
     }
@@ -180,7 +181,7 @@ const LGRUpload = ({ lgrToEdit }) => {
   };
 
   const onDropPreview = newFiles => {
-    // Dropzone already limits the file size to 10 MB
+    // Dropzone already limits the file size to config.maxUploadSize (10 MB)
     if (newFiles.length !== 1) {
       setLgrData({
         ...lgrData,
@@ -351,7 +352,15 @@ const LGRUpload = ({ lgrToEdit }) => {
                   {description}
                 </Text>
               ))}
-              <Dropzone filetype={'.lgr'} onDrop={e => onDropLGR(e)} />
+              <Dropzone
+                filetype={'.lgr'}
+                onDrop={e => onDropLGR(e)}
+                maxSize={
+                  mod() === 1
+                    ? 5 * config.maxUploadSize
+                    : 2 * config.maxUploadSize
+                }
+              />
             </>
           ) : (
             <>
